@@ -62,7 +62,7 @@ public class SnakeTest {
 	public void getPosition_ManyPieces_ReturnsAllPositions() throws Exception {
 		Snake snake = new Snake(3, 1).addTail(2, 1).addTail(1, 1).addTail(0, 1);
 
-		List<Point> point = snake.getPosition();
+		List<Point> point = snake.getPositions();
 
 		assertEquals(new Point(3, 1), point.get(0));
 		assertEquals(new Point(2, 1), point.get(1));

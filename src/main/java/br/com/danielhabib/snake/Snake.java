@@ -87,11 +87,15 @@ public class Snake {
 		return true;
 	}
 
-	public List<Point> getPosition() {
+	public List<Point> getPositions() {
 		List<Point> points = new ArrayList<Point>();
 		points.add(new Point(x, y));
-		points.addAll(tail.getPosition());
+		points.addAll(tail.getPositions());
 		return points;
+	}
+
+	public Point getPosition() {
+		return new Point(x, y);
 	}
 
 }

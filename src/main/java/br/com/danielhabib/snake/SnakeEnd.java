@@ -25,7 +25,7 @@ public class SnakeEnd extends Snake {
 	}
 
 	@Override
-	public List<Point> getPosition() {
+	public List<Point> getPositions() {
 		return new ArrayList<Point>();
 	}
 }

@@ -1,53 +1,26 @@
 package br.com.danielhabib.snake;
 
-import java.util.HashMap;
-import java.util.Map;
 
-public class MovingRules {
+public class MovingRules extends AMovingRules {
 
-	private Snake snake;
-	private final Point offset;
+	public MovingRules(Snake snake, Point movingOffset) {
+		super(snake, movingOffset);
+	}
 
 	public MovingRules(Snake snake) {
-		this(snake, new Point(1, 0));
+		super(snake);
 	}
 
-	public MovingRules(Snake snake, Point offset) {
-		this.snake = snake;
-		this.offset = offset;
-	}
-
-	public MovingRules move() {
-		return new MovingRules(snake.move(snake.getX() + offset.getX(), snake.getY() + offset.getY()), offset);
-	}
-
-	public MovingRules turnLeft() {
-		Map<Point, Point> leftTurningOffsetMap = new HashMap<Point, Point>();
-		leftTurningOffsetMap = new HashMap<>();
-		leftTurningOffsetMap.put(new Point(1, 0), new Point(0, -1));
-		leftTurningOffsetMap.put(new Point(0, -1), new Point(-1, 0));
-		leftTurningOffsetMap.put(new Point(-1, 0), new Point(0, 1));
-		leftTurningOffsetMap.put(new Point(0, 1), new Point(1, 0));
-
-		return new MovingRules(snake, leftTurningOffsetMap.get(offset));
-	}
-
-	public MovingRules turnRight() {
-		Map<Point, Point> rightTurningOffsetMap = new HashMap<Point, Point>();
-		rightTurningOffsetMap = new HashMap<>();
-		rightTurningOffsetMap.put(new Point(1, 0), new Point(0, 1));
-		rightTurningOffsetMap.put(new Point(0, 1), new Point(-1, 0));
-		rightTurningOffsetMap.put(new Point(-1, 0), new Point(0, -1));
-		rightTurningOffsetMap.put(new Point(0, -1), new Point(1, 0));
-
-		return new MovingRules(snake, rightTurningOffsetMap.get(offset));
+	@Override
+	public AMovingRules move() {
+		return new MovingRules(snake.move(snake.getX() + movingOffset.getX(), snake.getY() + movingOffset.getY()), movingOffset);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((offset == null) ? 0 : offset.hashCode());
+		result = prime * result + ((movingOffset == null) ? 0 : movingOffset.hashCode());
 		result = prime * result + ((snake == null) ? 0 : snake.hashCode());
 		return result;
 	}
@@ -64,11 +37,11 @@ public class MovingRules {
 			return false;
 		}
 		MovingRules other = (MovingRules) obj;
-		if (offset == null) {
-			if (other.offset != null) {
+		if (movingOffset == null) {
+			if (other.movingOffset != null) {
 				return false;
 			}
-		} else if (!offset.equals(other.offset)) {
+		} else if (!movingOffset.equals(other.movingOffset)) {
 			return false;
 		}
 		if (snake == null) {
@@ -81,13 +54,9 @@ public class MovingRules {
 		return true;
 	}
 
-	public void draw() {
-		offset.draw();
-		snake.draw();
-	}
-
-	public Snake getSnake() {
-		return snake;
+	@Override
+	protected AMovingRules newInstanceOfMovingRules(Snake snake, Point point) {
+		return new MovingRules(snake, point);
 	}
 
 }

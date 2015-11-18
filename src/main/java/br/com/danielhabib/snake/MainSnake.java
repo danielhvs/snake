@@ -16,12 +16,12 @@ public class MainSnake {
 	private static Main2D gui;
 
 	public static void main(String[] args) {
-		int size = 10;
+		int size = 5;
 		Snake snake = new Snake(size, 1);
 		for (int i = size; i >= 1; i--) {
 			snake = snake.addTail(i, 1);
 		}
-		MovingRules initial = new MovingRules(snake);
+		AMovingRules initial = new RestrictedMovingRules(snake);
 		JFrame frame = buildFrame();
 		gui = new Main2D(initial);
 		setupFrame(gui, frame);

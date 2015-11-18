@@ -9,9 +9,9 @@ import javax.swing.JApplet;
 public class Main2D extends JApplet {
 
 	private static final long serialVersionUID = -3688474214568402581L;
-	private MovingRules rules;
+	private AMovingRules rules;
 
-	public Main2D(MovingRules rules) {
+	public Main2D(AMovingRules rules) {
 		this.rules = rules;
 	}
 
@@ -25,18 +25,18 @@ public class Main2D extends JApplet {
 		g.clearRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.BLUE);
 		Snake snake = rules.getSnake();
-		List<Point> positions = snake.getPosition();
+		List<Point> positions = snake.getPositions();
 		for (Point point : positions) {
 			g.fillOval(point.getX() * 16, point.getY() * 16, 16, 16);
 		}
 		rules.draw();
 	}
 
-	public MovingRules getRules() {
+	public AMovingRules getRules() {
 		return rules;
 	}
 
-	public void setRules(MovingRules rules) {
+	public void setRules(AMovingRules rules) {
 		this.rules = rules;
 		repaint();
 	}
