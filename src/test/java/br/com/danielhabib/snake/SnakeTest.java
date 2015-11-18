@@ -38,4 +38,21 @@ public class SnakeTest {
 
 		snake.draw();
 	}
+
+	@Test
+	public void move_OnlyHead_MovesOnePosition() throws Exception {
+		Snake snake = new Snake(1, 1).move(2, 1);
+
+		assertEquals(new Snake(2, 1), snake);
+	}
+
+	@Test
+	public void move_ManyPieces_MovesAllPieces() throws Exception {
+		Snake snake = new Snake(3, 1).addTail(2, 1).addTail(1, 1).addTail(0, 1);
+
+		Snake actual = snake.move(4, 1);
+
+		Snake expected = new Snake(4, 1).addTail(3, 1).addTail(2, 1).addTail(1, 1);
+		assertEquals(expected, actual);
+	}
 }

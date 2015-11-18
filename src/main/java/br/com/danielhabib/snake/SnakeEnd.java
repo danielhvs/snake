@@ -1,7 +1,6 @@
 package br.com.danielhabib.snake;
 
 public class SnakeEnd extends Snake {
-
 	@Override
 	public int getSize() {
 		return 0;
@@ -14,5 +13,11 @@ public class SnakeEnd extends Snake {
 
 	@Override
 	public void draw() {
+		System.out.println();
+	}
+
+	@Override
+	public Snake move(int x, int y) {
+		return this;
 	}
 }

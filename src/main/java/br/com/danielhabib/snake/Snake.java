@@ -2,7 +2,7 @@ package br.com.danielhabib.snake;
 
 public class Snake {
 
-	private Snake tail;
+	protected Snake tail;
 	private int y;
 	private int x;
 
@@ -32,6 +32,41 @@ public class Snake {
 	public void draw() {
 		System.out.print("(" + x + "," + y + ")-");
 		tail.draw();
+	}
+
+	public Snake move(int x, int y) {
+		return new Snake(x, y, tail.move(this.x, this.y));
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((tail == null) ? 0 : tail.hashCode());
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Snake other = (Snake) obj;
+		if (tail == null) {
+			if (other.tail != null)
+				return false;
+		} else if (!tail.equals(other.tail))
+			return false;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
 	}
 
 }
