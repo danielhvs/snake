@@ -1,5 +1,8 @@
 package br.com.danielhabib.snake;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Snake {
 
 	protected Snake tail;
@@ -38,6 +41,14 @@ public class Snake {
 		return new Snake(x, y, tail.move(this.x, this.y));
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,23 +61,37 @@ public class Snake {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Snake other = (Snake) obj;
 		if (tail == null) {
-			if (other.tail != null)
+			if (other.tail != null) {
 				return false;
-		} else if (!tail.equals(other.tail))
+			}
+		} else if (!tail.equals(other.tail)) {
 			return false;
-		if (x != other.x)
+		}
+		if (x != other.x) {
 			return false;
-		if (y != other.y)
+		}
+		if (y != other.y) {
 			return false;
+		}
 		return true;
+	}
+
+	public List<Point> getPosition() {
+		List<Point> points = new ArrayList<Point>();
+		points.add(new Point(x, y));
+		points.addAll(tail.getPosition());
+		return points;
 	}
 
 }

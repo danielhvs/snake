@@ -1,5 +1,8 @@
 package br.com.danielhabib.snake;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SnakeEnd extends Snake {
 	@Override
 	public int getSize() {
@@ -19,5 +22,10 @@ public class SnakeEnd extends Snake {
 	@Override
 	public Snake move(int x, int y) {
 		return this;
+	}
+
+	@Override
+	public List<Point> getPosition() {
+		return new ArrayList<Point>();
 	}
 }

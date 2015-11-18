@@ -2,6 +2,8 @@ package br.com.danielhabib.snake;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class SnakeTest {
@@ -54,5 +56,17 @@ public class SnakeTest {
 
 		Snake expected = new Snake(4, 1).addTail(3, 1).addTail(2, 1).addTail(1, 1);
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void getPosition_ManyPieces_ReturnsAllPositions() throws Exception {
+		Snake snake = new Snake(3, 1).addTail(2, 1).addTail(1, 1).addTail(0, 1);
+
+		List<Point> point = snake.getPosition();
+
+		assertEquals(new Point(3, 1), point.get(0));
+		assertEquals(new Point(2, 1), point.get(1));
+		assertEquals(new Point(1, 1), point.get(2));
+		assertEquals(new Point(0, 1), point.get(3));
 	}
 }
