@@ -23,17 +23,25 @@ public class RandomMovingRules extends AMovingRules {
 
 	@Override
 	public AMovingRules turnLeft() {
-		if (Math.random() < 0.5)
+		double random = Math.random();
+		if (random < 0.3) {
 			return super.turnLeft();
-		else
+		} else if (random > 0.8) {
 			return super.turnRight();
+		} else {
+			return this;
+		}
 	}
 
 	@Override
 	public AMovingRules turnRight() {
-		if (Math.random() < 0.5)
+		double random = Math.random();
+		if (random < 0.3) {
 			return super.turnLeft();
-		else
+		} else if (random > 0.8) {
 			return super.turnRight();
+		} else {
+			return this;
+		}
 	}
 }
