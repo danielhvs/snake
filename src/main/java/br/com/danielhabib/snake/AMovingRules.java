@@ -1,5 +1,6 @@
 package br.com.danielhabib.snake;
 
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,13 +43,52 @@ public abstract class AMovingRules {
 		return newInstanceOfMovingRules(snake, rightTurningOffsetMap.get(movingOffset));
 	}
 
-	public void draw() {
+	public void draw(Graphics g) {
+		Point position = snake.getPosition();
+
+		int x = position.getX();
+		int y = position.getY();
+		int nextX = x + movingOffset.getX();
+		int nextY = y + movingOffset.getY();
+		g.drawRect(nextX * 16, nextY * 16, 16, 16);
+
 		movingOffset.draw();
 		snake.draw();
 	}
 
 	public Snake getSnake() {
 		return snake;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((movingOffset == null) ? 0 : movingOffset.hashCode());
+		result = prime * result + ((snake == null) ? 0 : snake.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AMovingRules other = (AMovingRules) obj;
+		if (movingOffset == null) {
+			if (other.movingOffset != null)
+				return false;
+		} else if (!movingOffset.equals(other.movingOffset))
+			return false;
+		if (snake == null) {
+			if (other.snake != null)
+				return false;
+		} else if (!snake.equals(other.snake))
+			return false;
+		return true;
 	}
 
 }

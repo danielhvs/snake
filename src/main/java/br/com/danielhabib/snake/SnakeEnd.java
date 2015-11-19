@@ -20,6 +20,11 @@ public class SnakeEnd extends Snake {
 	}
 
 	@Override
+	public String toString() {
+		return ".";
+	}
+
+	@Override
 	public Snake move(int x, int y) {
 		return this;
 	}

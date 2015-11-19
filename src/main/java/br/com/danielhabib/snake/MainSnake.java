@@ -5,10 +5,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
-
 
 public class MainSnake {
 
@@ -17,13 +18,17 @@ public class MainSnake {
 
 	public static void main(String[] args) {
 		int size = 5;
-		Snake snake = new Snake(size, 1);
-		for (int i = size; i >= 1; i--) {
-			snake = snake.addTail(i, 1);
+		Snake snake = new Snake(size, 14);
+		for (int i = size - 1; i >= 1; i--) {
+			snake = snake.addTail(i, 14);
 		}
-		AMovingRules initial = new RestrictedMovingRules(snake);
+		AMovingRules initial = new HoleMovingRules(snake, new Hole(new Point(5, 10), new Point(30, 27)));
+		Snake aiSnake = initial.move().getSnake();
+		AMovingRules random = new RandomMovingRules(aiSnake);
+		List<AMovingRules> list = Arrays.asList(random);
+
 		JFrame frame = buildFrame();
-		gui = new Main2D(initial);
+		gui = new Main2D(initial, list);
 		setupFrame(gui, frame);
 		setupCommands(frame);
 	}
@@ -63,13 +68,13 @@ public class MainSnake {
 				char keyChar = e.getKeyChar();
 				switch (keyChar) {
 				case 'a':
-					gui.setRules(gui.getRules().turnLeft().move());
+					gui.updateRules(gui.getRules().turnLeft());
 					break;
 				case 'd':
-					gui.setRules(gui.getRules().turnRight().move());
+					gui.updateRules(gui.getRules().turnRight());
 					break;
 				case 'm':
-					gui.setRules(gui.getRules().move());
+					gui.updateRules(gui.getRules());
 					break;
 				case 'q':
 					System.exit(0);

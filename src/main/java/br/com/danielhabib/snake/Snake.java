@@ -98,4 +98,9 @@ public class Snake {
 		return new Point(x, y);
 	}
 
+	@Override
+	public String toString() {
+		return "(" + x + "," + y + ")-" + tail.toString();
+	}
+
 }
