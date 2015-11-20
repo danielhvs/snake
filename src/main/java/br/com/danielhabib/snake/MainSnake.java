@@ -28,7 +28,7 @@ public class MainSnake {
 		List<AMovingRules> list = Arrays.asList(random);
 
 		JFrame frame = buildFrame();
-		gui = new Main2D(initial, list);
+		gui = new Main2D(initial, list, new FruitRule(new Point(10, 7)));
 		setupFrame(gui, frame);
 		setupCommands(frame);
 	}

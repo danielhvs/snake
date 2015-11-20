@@ -37,8 +37,16 @@ public class Snake {
 		return tail;
 	}
 
+	// TODO: Point signature.
 	public Snake addTail(int x, int y) {
 		Snake newTail = tail.addTail(x, y);
+		return new Snake(position, direction, newTail);
+	}
+
+	public Snake addTail() {
+		Point lastTailPosition = getLastTailPosition();
+		Point newTailPosition = lastTailPosition.subtract(direction);
+		Snake newTail = tail.addTail(newTailPosition.getX(), newTailPosition.getY());
 		return new Snake(position, direction, newTail);
 	}
 
@@ -56,6 +64,12 @@ public class Snake {
 		points.add(position);
 		points.addAll(tail.getPositions());
 		return points;
+	}
+
+	private Point getLastTailPosition() {
+		List<Point> positions = getPositions();
+		Point lastTailPosition = positions.get(positions.size() - 1);
+		return lastTailPosition;
 	}
 
 	public Point getPosition() {

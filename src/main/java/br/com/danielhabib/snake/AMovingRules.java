@@ -45,7 +45,7 @@ public abstract class AMovingRules {
 		int y = position.getY();
 		int nextX = x + direction.getX();
 		int nextY = y + direction.getY();
-		g.drawRect(nextX * 16, nextY * 16, 16, 16);
+		g.drawRect(nextX * 16, nextY * 16, 4, 4);
 
 		direction.draw();
 		snake.draw();
@@ -83,6 +83,10 @@ public abstract class AMovingRules {
 			return false;
 		}
 		return true;
+	}
+
+	public void setSnake(Snake update) {
+		this.snake = update;
 	}
 
 }

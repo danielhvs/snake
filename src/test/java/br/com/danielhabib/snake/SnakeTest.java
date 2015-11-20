@@ -42,4 +42,12 @@ public class SnakeTest {
 		assertEquals(new Point(1, 1), point.get(2));
 		assertEquals(new Point(0, 1), point.get(3));
 	}
+
+	@Test
+	public void addTail_NoParameter_AddsAfterLastTail() throws Exception {
+		Snake snake = new Snake(3, 1).addTail(2, 1).addTail(1, 1).addTail();
+		Snake expected = new Snake(3, 1).addTail(2, 1).addTail(1, 1).addTail(0, 1);
+
+		assertEquals(expected, snake);
+	}
 }

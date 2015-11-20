@@ -12,10 +12,12 @@ public class Main2D extends JApplet {
 	private static final long serialVersionUID = -3688474214568402581L;
 	private AMovingRules rules;
 	private List<AMovingRules> list;
+	private final FruitRule fruit;
 
-	public Main2D(AMovingRules rules, List<AMovingRules> list) {
+	public Main2D(AMovingRules rules, List<AMovingRules> list, FruitRule fruit) {
 		this.rules = rules;
 		this.list = list;
+		this.fruit = fruit;
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class Main2D extends JApplet {
 		draw(g, rules.getSnake());
 		// AI
 		for (AMovingRules rule : list) {
-			draw(g, rule.getSnake());
+			// draw(g, rule.getSnake());
 		}
 
 	}
@@ -41,19 +43,22 @@ public class Main2D extends JApplet {
 		for (Point point : positions) {
 			g.fillOval(point.getX() * 16, point.getY() * 16, 16, 16);
 		}
+		fruit.draw(g);
 	}
 
 	public AMovingRules getRules() {
 		return rules;
 	}
 
-	public void updateRules(AMovingRules rules) {
-		this.rules = rules.move();
+	public void updateRules(AMovingRules movingRules) {
+		rules = movingRules.move();
 		List<AMovingRules> updatedList = new ArrayList<AMovingRules>();
 		for (AMovingRules rule : list) {
 			updatedList.add(rule.turnLeft().move());
 		}
 		this.list = updatedList;
+		rules.setSnake(fruit.update(rules.getSnake()));
 		repaint();
 	}
+
 }
