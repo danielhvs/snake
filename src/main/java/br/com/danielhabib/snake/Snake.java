@@ -7,27 +7,39 @@ public class Snake {
 
 	protected Snake tail;
 	private Point position;
+	private Point direction;
 
 	public Snake() {
 	}
 
-	public Snake(Point position, Snake tail) {
+	public Snake(Point position, Point direction, Snake tail) {
 		this.position = position;
+		this.direction = direction;
 		this.tail = tail;
 	}
 
 	// Tail-less snake
-	public Snake(int x, int y) {
-		this(new Point(x, y), new SnakeEnd());
+	public Snake(Point position, Point direction) {
+		this(position, direction, new SnakeEnd());
 	}
 
-	public int getSize() {
-		return 1 + tail.getSize();
+	// Tail-less snake
+	// TODO: Remove this
+	public Snake(int x, int y) {
+		this(new Point(x, y), new Point(1, 0), new SnakeEnd());
+	}
+
+	public Snake(Snake snake, Point direction) {
+		this(new Point(snake.getPosition()), direction, snake.getTail());
+	}
+
+	public Snake getTail() {
+		return tail;
 	}
 
 	public Snake addTail(int x, int y) {
 		Snake newTail = tail.addTail(x, y);
-		return new Snake(position, newTail);
+		return new Snake(position, direction, newTail);
 	}
 
 	public void draw() {
@@ -36,7 +48,7 @@ public class Snake {
 	}
 
 	public Snake move(Point point) {
-		return new Snake(point, tail.move(position));
+		return new Snake(point, direction, tail.move(position));
 	}
 
 	public List<Point> getPositions() {
@@ -48,6 +60,10 @@ public class Snake {
 
 	public Point getPosition() {
 		return position;
+	}
+
+	public Point getDirection() {
+		return direction;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ public class RestrictedMovingRulesTest {
 
 	@Test
 	public void move_ThereIsTailInTheWay_DoesntMove() throws Exception {
-		AMovingRules rules = new RestrictedMovingRules(snakeSize5(), new Point(1, 0))
+		AMovingRules rules = new RestrictedMovingRules(snakeSize5())
 		.turnLeft().move()
 		.turnLeft().move()
 		.turnLeft().move();

@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SnakeEnd extends Snake {
-	@Override
-	public int getSize() {
-		return 0;
-	}
 
 	@Override
 	public Snake addTail(int x, int y) {

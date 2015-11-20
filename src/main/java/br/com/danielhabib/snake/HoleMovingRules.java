@@ -7,8 +7,8 @@ public class HoleMovingRules extends AMovingRules {
 
 	private Hole hole;
 
-	public HoleMovingRules(Snake snake, Point point, Hole hole) {
-		super(snake, point);
+	public HoleMovingRules(Snake snake, Hole hole) {
+		super(snake);
 		this.hole = hole;
 	}
 
@@ -16,21 +16,16 @@ public class HoleMovingRules extends AMovingRules {
 	public AMovingRules move() {
 		if (snake.getPosition().equals(hole.getInitialPoint())) {
 			Snake teleportedSnake = snake.move(hole.getFinalPoint());
-			return new HoleMovingRules(teleportedSnake, movingOffset, hole);
+			return new HoleMovingRules(teleportedSnake, hole);
 		} else {
-			Snake futureSnake = snake.move(snake.getPosition().add(movingOffset));
-			return new HoleMovingRules(futureSnake, movingOffset, hole);
+			Snake futureSnake = snake.move(snake.getPosition().add(snake.getDirection()));
+			return new HoleMovingRules(futureSnake, hole);
 		}
 	}
 
 	@Override
-	protected AMovingRules newInstanceOfMovingRules(Snake snake, Point point) {
-		return new HoleMovingRules(snake, point, hole);
-	}
-
-	@Override
-	public String toString() {
-		return "HoleMovingRules [hole=" + hole + ", snake=" + snake + ", movingOffset=" + movingOffset + "]";
+	protected AMovingRules newInstanceOfMovingRules(Snake snake, Point direction) {
+		return new HoleMovingRules(new Snake(snake, direction), hole);
 	}
 
 	@Override

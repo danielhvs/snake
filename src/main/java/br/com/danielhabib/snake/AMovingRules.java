@@ -6,16 +6,14 @@ import java.util.Map;
 
 public abstract class AMovingRules {
 	protected Snake snake;
-	protected final Point movingOffset;
 
-	public AMovingRules(Snake snake, Point offset) {
+	public AMovingRules(Snake snake) {
 		this.snake = snake;
-		this.movingOffset = offset;
 	}
 
 	public abstract AMovingRules move();
 
-	protected abstract AMovingRules newInstanceOfMovingRules(Snake snake, Point point);
+	protected abstract AMovingRules newInstanceOfMovingRules(Snake snake, Point direction);
 
 	public AMovingRules turnLeft() {
 		Map<Point, Point> leftTurningOffsetMap = new HashMap<Point, Point>();
@@ -25,7 +23,7 @@ public abstract class AMovingRules {
 		leftTurningOffsetMap.put(new Point(-1, 0), new Point(0, 1));
 		leftTurningOffsetMap.put(new Point(0, 1), new Point(1, 0));
 
-		return newInstanceOfMovingRules(snake, leftTurningOffsetMap.get(movingOffset));
+		return newInstanceOfMovingRules(snake, leftTurningOffsetMap.get(snake.getDirection()));
 	}
 
 	public AMovingRules turnRight() {
@@ -36,19 +34,20 @@ public abstract class AMovingRules {
 		rightTurningOffsetMap.put(new Point(-1, 0), new Point(0, -1));
 		rightTurningOffsetMap.put(new Point(0, -1), new Point(1, 0));
 
-		return newInstanceOfMovingRules(snake, rightTurningOffsetMap.get(movingOffset));
+		return newInstanceOfMovingRules(snake, rightTurningOffsetMap.get(snake.getDirection()));
 	}
 
 	public void draw(Graphics g) {
 		Point position = snake.getPosition();
+		Point direction = snake.getDirection();
 
 		int x = position.getX();
 		int y = position.getY();
-		int nextX = x + movingOffset.getX();
-		int nextY = y + movingOffset.getY();
+		int nextX = x + direction.getX();
+		int nextY = y + direction.getY();
 		g.drawRect(nextX * 16, nextY * 16, 16, 16);
 
-		movingOffset.draw();
+		direction.draw();
 		snake.draw();
 	}
 
@@ -60,7 +59,6 @@ public abstract class AMovingRules {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((movingOffset == null) ? 0 : movingOffset.hashCode());
 		result = prime * result + ((snake == null) ? 0 : snake.hashCode());
 		return result;
 	}
@@ -77,13 +75,6 @@ public abstract class AMovingRules {
 			return false;
 		}
 		AMovingRules other = (AMovingRules) obj;
-		if (movingOffset == null) {
-			if (other.movingOffset != null) {
-				return false;
-			}
-		} else if (!movingOffset.equals(other.movingOffset)) {
-			return false;
-		}
 		if (snake == null) {
 			if (other.snake != null) {
 				return false;
