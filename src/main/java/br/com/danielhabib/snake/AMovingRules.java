@@ -8,10 +8,6 @@ public abstract class AMovingRules {
 	protected Snake snake;
 	protected final Point movingOffset;
 
-	public AMovingRules(Snake snake) {
-		this(snake, new Point(1, 0));
-	}
-
 	public AMovingRules(Snake snake, Point offset) {
 		this.snake = snake;
 		this.movingOffset = offset;
@@ -71,23 +67,30 @@ public abstract class AMovingRules {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		AMovingRules other = (AMovingRules) obj;
 		if (movingOffset == null) {
-			if (other.movingOffset != null)
+			if (other.movingOffset != null) {
 				return false;
-		} else if (!movingOffset.equals(other.movingOffset))
+			}
+		} else if (!movingOffset.equals(other.movingOffset)) {
 			return false;
+		}
 		if (snake == null) {
-			if (other.snake != null)
+			if (other.snake != null) {
 				return false;
-		} else if (!snake.equals(other.snake))
+			}
+		} else if (!snake.equals(other.snake)) {
 			return false;
+		}
 		return true;
 	}
 

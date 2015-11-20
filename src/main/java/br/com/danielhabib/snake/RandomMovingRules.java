@@ -4,8 +4,7 @@ public class RandomMovingRules extends AMovingRules {
 
 	@Override
 	public AMovingRules move() {
-		return new RandomMovingRules(snake.move(snake.getX() + movingOffset.getX(), snake.getY() + movingOffset.getY()),
-				movingOffset);
+		return new RandomMovingRules(snake.move(snake.getPosition().add(movingOffset)), movingOffset);
 	}
 
 	@Override
@@ -13,12 +12,8 @@ public class RandomMovingRules extends AMovingRules {
 		return new RandomMovingRules(snake, point);
 	}
 
-	private RandomMovingRules(Snake snake, Point point) {
+	public RandomMovingRules(Snake snake, Point point) {
 		super(snake, point);
-	}
-
-	public RandomMovingRules(Snake aiSnake) {
-		super(aiSnake);
 	}
 
 	@Override

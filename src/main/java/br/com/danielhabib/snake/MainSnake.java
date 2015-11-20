@@ -22,9 +22,9 @@ public class MainSnake {
 		for (int i = size - 1; i >= 1; i--) {
 			snake = snake.addTail(i, 14);
 		}
-		AMovingRules initial = new HoleMovingRules(snake, new Hole(new Point(5, 10), new Point(30, 27)));
+		AMovingRules initial = new HoleMovingRules(snake, new Point(1, 0), new Hole(new Point(5, 10), new Point(30, 27)));
 		Snake aiSnake = initial.move().getSnake();
-		AMovingRules random = new RandomMovingRules(aiSnake);
+		AMovingRules random = new RandomMovingRules(aiSnake, new Point(1, 0));
 		List<AMovingRules> list = Arrays.asList(random);
 
 		JFrame frame = buildFrame();

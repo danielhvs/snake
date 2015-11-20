@@ -12,18 +12,13 @@ public class HoleMovingRules extends AMovingRules {
 		this.hole = hole;
 	}
 
-	public HoleMovingRules(Snake snake, Hole hole) {
-		super(snake);
-		this.hole = hole;
-	}
-
 	@Override
 	public AMovingRules move() {
 		if (snake.getPosition().equals(hole.getInitialPoint())) {
-			Snake teleportedSnake = snake.move(hole.getFinalPoint().getX(), hole.getFinalPoint().getY());
+			Snake teleportedSnake = snake.move(hole.getFinalPoint());
 			return new HoleMovingRules(teleportedSnake, movingOffset, hole);
 		} else {
-			Snake futureSnake = snake.move(snake.getX() + movingOffset.getX(), snake.getY() + movingOffset.getY());
+			Snake futureSnake = snake.move(snake.getPosition().add(movingOffset));
 			return new HoleMovingRules(futureSnake, movingOffset, hole);
 		}
 	}
@@ -59,18 +54,23 @@ public class HoleMovingRules extends AMovingRules {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		HoleMovingRules other = (HoleMovingRules) obj;
 		if (hole == null) {
-			if (other.hole != null)
+			if (other.hole != null) {
 				return false;
-		} else if (!hole.equals(other.hole))
+			}
+		} else if (!hole.equals(other.hole)) {
 			return false;
+		}
 		return true;
 	}
 

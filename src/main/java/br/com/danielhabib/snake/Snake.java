@@ -6,21 +6,19 @@ import java.util.List;
 public class Snake {
 
 	protected Snake tail;
-	private int y;
-	private int x;
+	private Point position;
 
 	public Snake() {
 	}
 
-	public Snake(int x, int y, Snake tail) {
-		this.x = x;
-		this.y = y;
+	public Snake(Point position, Snake tail) {
+		this.position = position;
 		this.tail = tail;
 	}
 
 	// Tail-less snake
 	public Snake(int x, int y) {
-		this(x, y, new SnakeEnd());
+		this(new Point(x, y), new SnakeEnd());
 	}
 
 	public int getSize() {
@@ -29,33 +27,40 @@ public class Snake {
 
 	public Snake addTail(int x, int y) {
 		Snake newTail = tail.addTail(x, y);
-		return new Snake(this.x, this.y, newTail);
+		return new Snake(position, newTail);
 	}
 
 	public void draw() {
-		System.out.print("(" + x + "," + y + ")-");
+		System.out.print(position);
 		tail.draw();
 	}
 
-	public Snake move(int x, int y) {
-		return new Snake(x, y, tail.move(this.x, this.y));
+	public Snake move(Point point) {
+		return new Snake(point, tail.move(position));
 	}
 
-	public int getX() {
-		return x;
+	public List<Point> getPositions() {
+		List<Point> points = new ArrayList<Point>();
+		points.add(position);
+		points.addAll(tail.getPositions());
+		return points;
 	}
 
-	public int getY() {
-		return y;
+	public Point getPosition() {
+		return position;
+	}
+
+	@Override
+	public String toString() {
+		return position + "-" + tail.toString();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((position == null) ? 0 : position.hashCode());
 		result = prime * result + ((tail == null) ? 0 : tail.hashCode());
-		result = prime * result + x;
-		result = prime * result + y;
 		return result;
 	}
 
@@ -71,6 +76,13 @@ public class Snake {
 			return false;
 		}
 		Snake other = (Snake) obj;
+		if (position == null) {
+			if (other.position != null) {
+				return false;
+			}
+		} else if (!position.equals(other.position)) {
+			return false;
+		}
 		if (tail == null) {
 			if (other.tail != null) {
 				return false;
@@ -78,29 +90,7 @@ public class Snake {
 		} else if (!tail.equals(other.tail)) {
 			return false;
 		}
-		if (x != other.x) {
-			return false;
-		}
-		if (y != other.y) {
-			return false;
-		}
 		return true;
-	}
-
-	public List<Point> getPositions() {
-		List<Point> points = new ArrayList<Point>();
-		points.add(new Point(x, y));
-		points.addAll(tail.getPositions());
-		return points;
-	}
-
-	public Point getPosition() {
-		return new Point(x, y);
-	}
-
-	@Override
-	public String toString() {
-		return "(" + x + "," + y + ")-" + tail.toString();
 	}
 
 }

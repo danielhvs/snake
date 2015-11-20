@@ -54,7 +54,11 @@ public class Point {
 
 	@Override
 	public String toString() {
-		return "Point [x=" + x + ", y=" + y + "]";
+		return "(" + x + "," + y + ")";
+	}
+
+	public Point add(Point point) {
+		return new Point(point.getX() + getX(), point.getY() + getY());
 	}
 
 }

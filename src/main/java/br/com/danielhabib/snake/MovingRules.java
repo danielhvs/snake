@@ -7,13 +7,9 @@ public class MovingRules extends AMovingRules {
 		super(snake, movingOffset);
 	}
 
-	public MovingRules(Snake snake) {
-		super(snake);
-	}
-
 	@Override
 	public AMovingRules move() {
-		return new MovingRules(snake.move(snake.getX() + movingOffset.getX(), snake.getY() + movingOffset.getY()), movingOffset);
+		return new MovingRules(snake.move(snake.getPosition().add(movingOffset)), movingOffset);
 	}
 
 	@Override

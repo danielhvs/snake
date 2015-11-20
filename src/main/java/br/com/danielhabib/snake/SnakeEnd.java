@@ -25,7 +25,7 @@ public class SnakeEnd extends Snake {
 	}
 
 	@Override
-	public Snake move(int x, int y) {
+	public Snake move(Point point) {
 		return this;
 	}
 

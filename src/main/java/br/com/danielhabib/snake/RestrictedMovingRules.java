@@ -8,13 +8,9 @@ public class RestrictedMovingRules extends AMovingRules {
 		super(snake, offset);
 	}
 
-	public RestrictedMovingRules(Snake snake) {
-		super(snake);
-	}
-
 	@Override
 	public AMovingRules move() {
-		Snake futureSnake = snake.move(snake.getX() + movingOffset.getX(), snake.getY() + movingOffset.getY());
+		Snake futureSnake = snake.move(snake.getPosition().add(movingOffset));
 		List<Point> positions = futureSnake.getPositions();
 		for (int i = 1; i < positions.size(); i++) {
 			if (positions.get(i).equals(futureSnake.getPosition())) {

@@ -43,7 +43,7 @@ public class SnakeTest {
 
 	@Test
 	public void move_OnlyHead_MovesOnePosition() throws Exception {
-		Snake snake = new Snake(1, 1).move(2, 1);
+		Snake snake = new Snake(1, 1).move(new Point(2, 1));
 
 		assertEquals(new Snake(2, 1), snake);
 	}
@@ -52,7 +52,7 @@ public class SnakeTest {
 	public void move_ManyPieces_MovesAllPieces() throws Exception {
 		Snake snake = new Snake(3, 1).addTail(2, 1).addTail(1, 1).addTail(0, 1);
 
-		Snake actual = snake.move(4, 1);
+		Snake actual = snake.move(new Point(4, 1));
 
 		Snake expected = new Snake(4, 1).addTail(3, 1).addTail(2, 1).addTail(1, 1);
 		assertEquals(expected, actual);
