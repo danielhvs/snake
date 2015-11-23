@@ -1,18 +1,22 @@
 package br.com.danielhabib.snake;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class RestrictedMovingRulesTest {
 
 	@Test
 	public void move_ThereIsTailInTheWay_DoesntMove() throws Exception {
-		AMovingRules rules = new RestrictedMovingRules(snakeSize5())
-		.turnLeft().move()
-		.turnLeft().move()
-		.turnLeft().move();
+		AMovingRules rules = new RestrictedMovingRules();
 
-		Assert.assertEquals(new Point(4, -1), rules.getSnake().getPosition());
+		Snake snake = snakeSize5();
+		for (int i = 0; i < 3; i++) {
+			snake = rules.turnLeft(snake);
+			snake = rules.update(snake);
+		}
+
+		assertEquals(new Point(4, -1), snake.getPosition());
 	}
 
 	private Snake snakeSize5() {

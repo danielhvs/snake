@@ -5,8 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
@@ -23,12 +21,11 @@ public class MainSnake {
 			snake = snake.addTail(i, 14);
 		}
 		AMovingRules initial = new HoleMovingRules(snake, new Hole(new Point(5, 10), new Point(30, 27)));
-		Snake aiSnake = initial.move().getSnake();
-		AMovingRules random = new RandomMovingRules(new Snake(aiSnake, new Point(1, 0)));
-		List<AMovingRules> list = Arrays.asList(random);
+		Snake aiSnake = snake.move();
+		AMovingRules random = new RandomMovingRules();
 
 		JFrame frame = buildFrame();
-		gui = new Main2D(initial, list, new FruitRule(new Point(10, 7)));
+		gui = new Main2D(snake, initial, aiSnake, random, new FruitRule(new Point(10, 7)));
 		setupFrame(gui, frame);
 		setupCommands(frame);
 	}
@@ -68,13 +65,13 @@ public class MainSnake {
 				char keyChar = e.getKeyChar();
 				switch (keyChar) {
 				case 'a':
-					gui.updateRules(gui.getRules().turnLeft());
+					gui.left();
 					break;
 				case 'd':
-					gui.updateRules(gui.getRules().turnRight());
+					gui.right();
 					break;
 				case 'm':
-					gui.updateRules(gui.getRules());
+					gui.updateRules();
 					break;
 				case 'q':
 					System.exit(0);

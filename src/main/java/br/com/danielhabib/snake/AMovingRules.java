@@ -7,6 +7,9 @@ import java.util.Map;
 public abstract class AMovingRules {
 	protected Snake snake;
 
+	public AMovingRules() {
+	}
+
 	public AMovingRules(Snake snake) {
 		this.snake = snake;
 	}
@@ -35,20 +38,6 @@ public abstract class AMovingRules {
 		rightTurningOffsetMap.put(new Point(0, -1), new Point(1, 0));
 
 		return newInstanceOfMovingRules(snake, rightTurningOffsetMap.get(snake.getDirection()));
-	}
-
-	public void draw(Graphics g) {
-		Point position = snake.getPosition();
-		Point direction = snake.getDirection();
-
-		int x = position.getX();
-		int y = position.getY();
-		int nextX = x + direction.getX();
-		int nextY = y + direction.getY();
-		g.drawRect(nextX * 16, nextY * 16, 4, 4);
-
-		direction.draw();
-		snake.draw();
 	}
 
 	public Snake getSnake() {
@@ -87,6 +76,33 @@ public abstract class AMovingRules {
 
 	public void setSnake(Snake update) {
 		this.snake = update;
+	}
+
+	public abstract Snake update(Snake snake);
+
+	public Snake turnLeft(Snake snake) {
+		Map<Point, Point> leftTurningOffsetMap = new HashMap<Point, Point>();
+		leftTurningOffsetMap = new HashMap<Point, Point>();
+		leftTurningOffsetMap.put(new Point(1, 0), new Point(0, -1));
+		leftTurningOffsetMap.put(new Point(0, -1), new Point(-1, 0));
+		leftTurningOffsetMap.put(new Point(-1, 0), new Point(0, 1));
+		leftTurningOffsetMap.put(new Point(0, 1), new Point(1, 0));
+
+		return new Snake(snake, leftTurningOffsetMap.get(snake.getDirection()));
+	}
+
+	public Snake turnRight(Snake snake) {
+		Map<Point, Point> rightTurningOffsetMap = new HashMap<Point, Point>();
+		rightTurningOffsetMap = new HashMap<Point, Point>();
+		rightTurningOffsetMap.put(new Point(1, 0), new Point(0, 1));
+		rightTurningOffsetMap.put(new Point(0, 1), new Point(-1, 0));
+		rightTurningOffsetMap.put(new Point(-1, 0), new Point(0, -1));
+		rightTurningOffsetMap.put(new Point(0, -1), new Point(1, 0));
+
+		return new Snake(snake, rightTurningOffsetMap.get(snake.getDirection()));
+	}
+
+	public void draw(Graphics g) {
 	}
 
 }

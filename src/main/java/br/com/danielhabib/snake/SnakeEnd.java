@@ -1,5 +1,6 @@
 package br.com.danielhabib.snake;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,10 @@ public class SnakeEnd extends Snake {
 	@Override
 	public void draw() {
 		System.out.println();
+	}
+
+	@Override
+	public void draw(Graphics g) {
 	}
 
 	@Override

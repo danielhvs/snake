@@ -1,5 +1,7 @@
 package br.com.danielhabib.snake;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +20,10 @@ public class Snake {
 		this.tail = tail;
 	}
 
-	// Tail-less snake
 	public Snake(Point position, Point direction) {
 		this(position, direction, new SnakeEnd());
 	}
 
-	// Tail-less snake
-	// TODO: Remove this
 	public Snake(int x, int y) {
 		this(new Point(x, y), new Point(1, 0), new SnakeEnd());
 	}
@@ -37,7 +36,10 @@ public class Snake {
 		return tail;
 	}
 
-	// TODO: Point signature.
+	public Snake addTail(Point position) {
+		return addTail(position.getX(), position.getY());
+	}
+
 	public Snake addTail(int x, int y) {
 		Snake newTail = tail.addTail(x, y);
 		return new Snake(position, direction, newTail);
@@ -46,7 +48,7 @@ public class Snake {
 	public Snake addTail() {
 		Point lastTailPosition = getLastTailPosition();
 		Point newTailPosition = lastTailPosition.subtract(direction);
-		Snake newTail = tail.addTail(newTailPosition.getX(), newTailPosition.getY());
+		Snake newTail = tail.addTail(newTailPosition);
 		return new Snake(position, direction, newTail);
 	}
 
@@ -55,8 +57,25 @@ public class Snake {
 		tail.draw();
 	}
 
+	public void draw(Graphics g) {
+		int x = position.getX();
+		int y = position.getY();
+		int nextX = x + direction.getX();
+		int nextY = y + direction.getY();
+		g.drawRect(nextX * 16, nextY * 16, 4, 4);
+
+		g.setColor(Color.BLUE);
+		for (Point point : getPositions()) {
+			g.fillOval(point.getX() * 16, point.getY() * 16, 16, 16);
+		}
+	}
+
 	public Snake move(Point point) {
 		return new Snake(point, direction, tail.move(position));
+	}
+
+	public Snake move() {
+		return move(position.add(direction));
 	}
 
 	public List<Point> getPositions() {

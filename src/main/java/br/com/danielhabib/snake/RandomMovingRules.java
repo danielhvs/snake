@@ -16,16 +16,12 @@ public class RandomMovingRules extends AMovingRules {
 		super(snake);
 	}
 
+	public RandomMovingRules() {
+	}
+
 	@Override
 	public AMovingRules turnLeft() {
-		double random = Math.random();
-		if (random < 0.3) {
-			return super.turnLeft();
-		} else if (random > 0.8) {
-			return super.turnRight();
-		} else {
-			return this;
-		}
+		return turnRight();
 	}
 
 	@Override
@@ -38,5 +34,27 @@ public class RandomMovingRules extends AMovingRules {
 		} else {
 			return this;
 		}
+	}
+
+	@Override
+	public Snake turnLeft(Snake snake) {
+		return turnRight(snake);
+	}
+
+	@Override
+	public Snake turnRight(Snake snake) {
+		double random = Math.random();
+		if (random < 0.3) {
+			return super.turnLeft(snake);
+		} else if (random > 0.8) {
+			return super.turnRight(snake);
+		} else {
+			return snake;
+		}
+	}
+
+	@Override
+	public Snake update(Snake snake) {
+		return snake.move();
 	}
 }

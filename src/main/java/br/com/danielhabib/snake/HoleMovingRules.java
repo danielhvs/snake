@@ -69,4 +69,9 @@ public class HoleMovingRules extends AMovingRules {
 		return true;
 	}
 
+	@Override
+	public Snake update(Snake snake) {
+		return snake.getPosition().equals(hole.getInitialPoint()) ? snake.move(hole.getFinalPoint()) : snake.move();
+	}
+
 }

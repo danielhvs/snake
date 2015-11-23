@@ -2,8 +2,6 @@ package br.com.danielhabib.snake;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JApplet;
 
@@ -11,12 +9,16 @@ public class Main2D extends JApplet {
 
 	private static final long serialVersionUID = -3688474214568402581L;
 	private AMovingRules rules;
-	private List<AMovingRules> list;
 	private final FruitRule fruit;
+	private Snake snake;
+	private Snake ai = new SnakeEnd();
+	private AMovingRules random;
 
-	public Main2D(AMovingRules rules, List<AMovingRules> list, FruitRule fruit) {
+	public Main2D(Snake snake, AMovingRules rules, Snake aiSnake, AMovingRules random, FruitRule fruit) {
+		this.snake = snake;
 		this.rules = rules;
-		this.list = list;
+		this.random = random;
+		this.ai = aiSnake;
 		this.fruit = fruit;
 	}
 
@@ -29,35 +31,32 @@ public class Main2D extends JApplet {
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, getWidth(), getHeight());
 		rules.draw(g);
-		draw(g, rules.getSnake());
-		// AI
-		for (AMovingRules rule : list) {
-			// draw(g, rule.getSnake());
-		}
-
-	}
-
-	private void draw(Graphics g, Snake snake) {
-		List<Point> positions = snake.getPositions();
-		g.setColor(Color.BLUE);
-		for (Point point : positions) {
-			g.fillOval(point.getX() * 16, point.getY() * 16, 16, 16);
-		}
+		snake.draw(g);
 		fruit.draw(g);
+		ai.draw(g);
 	}
 
 	public AMovingRules getRules() {
 		return rules;
 	}
 
-	public void updateRules(AMovingRules movingRules) {
-		rules = movingRules.move();
-		List<AMovingRules> updatedList = new ArrayList<AMovingRules>();
-		for (AMovingRules rule : list) {
-			updatedList.add(rule.turnLeft().move());
-		}
-		this.list = updatedList;
-		rules.setSnake(fruit.update(rules.getSnake()));
+	public void left() {
+		snake = rules.turnLeft(snake);
+		ai = random.turnLeft(ai);
+		repaint();
+	}
+
+	public void right() {
+		snake = rules.turnRight(snake);
+		ai = random.turnRight(ai);
+		repaint();
+	}
+
+	public void updateRules() {
+		snake = rules.update(snake);
+		snake = fruit.update(snake);
+		ai = random.turnLeft(ai);
+		ai = random.update(ai);
 		repaint();
 	}
 
