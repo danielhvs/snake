@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AMovingRules {
+public abstract class AMovingRules implements IRule {
 	protected Snake snake;
 
 	public AMovingRules() {
@@ -15,6 +15,9 @@ public abstract class AMovingRules {
 	}
 
 	public abstract AMovingRules move();
+
+	@Override
+	public abstract Snake update(Snake snake);
 
 	protected abstract AMovingRules newInstanceOfMovingRules(Snake snake, Point direction);
 
@@ -77,8 +80,6 @@ public abstract class AMovingRules {
 	public void setSnake(Snake update) {
 		this.snake = update;
 	}
-
-	public abstract Snake update(Snake snake);
 
 	public Snake turnLeft(Snake snake) {
 		Map<Point, Point> leftTurningOffsetMap = new HashMap<Point, Point>();

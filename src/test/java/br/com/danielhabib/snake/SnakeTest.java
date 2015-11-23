@@ -50,4 +50,18 @@ public class SnakeTest {
 
 		assertEquals(expected, snake);
 	}
+
+	@Test
+	public void removeTail_OneHeadedSnake_ReturnsSnakeEnd() throws Exception {
+		Snake snake = new Snake(0, 0).removeTail();
+
+		assertEquals(new SnakeEnd(), snake);
+	}
+
+	@Test
+	public void removeTail_TwoHeadedSnake_ReturnsOneHeaded() throws Exception {
+		Snake snake = new Snake(0, 0).addTail(1, 0).removeTail();
+
+		assertEquals(new Snake(0, 0), snake);
+	}
 }

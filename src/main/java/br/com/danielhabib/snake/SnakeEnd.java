@@ -34,4 +34,9 @@ public class SnakeEnd extends Snake {
 	public List<Point> getPositions() {
 		return new ArrayList<Point>();
 	}
+
+	@Override
+	public Snake removeTail() {
+		return this;
+	}
 }

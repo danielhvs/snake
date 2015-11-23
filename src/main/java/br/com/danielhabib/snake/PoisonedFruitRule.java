@@ -3,12 +3,12 @@ package br.com.danielhabib.snake;
 import java.awt.Color;
 import java.awt.Graphics;
 
-// Stateful rule!
-public class FruitRule implements IRule {
+//Stateful rule!
+public class PoisonedFruitRule implements IRule {
 
 	private Point fruitPosition;
 
-	public FruitRule(Point fruitPosition) {
+	public PoisonedFruitRule(Point fruitPosition) {
 		this.fruitPosition = fruitPosition;
 	}
 
@@ -19,12 +19,13 @@ public class FruitRule implements IRule {
 
 	private Snake consumesFruit(Snake snake) {
 		fruitPosition = new Point(-1, -1); // NOP: state change!
-		return snake.addTail();
+		return snake.removeTail();
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		if (fruitPosition.getX() >= 0) {
-			g.setColor(Color.ORANGE);
+			g.setColor(Color.RED);
 			g.fillOval(fruitPosition.getX() * 16, fruitPosition.getY() * 16, 16, 16);
 		}
 	}

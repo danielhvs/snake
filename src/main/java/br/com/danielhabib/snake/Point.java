@@ -63,11 +63,15 @@ public class Point {
 	}
 
 	public Point add(Point point) {
-		return new Point(getX() + point.getX(), getY() + point.getY());
+		return new Point(x + point.getX(), y + point.getY());
 	}
 
-	public Point subtract(Point point) {
-		return new Point(getX() - point.getX(), getY() - point.getY());
+	public Point subtract(Point other) {
+		return new Point(x - other.getX(), y - other.getY());
+	}
+
+	public Point invert() {
+		return new Point(-x, -y);
 	}
 
 }

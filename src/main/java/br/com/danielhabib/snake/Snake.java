@@ -91,6 +91,11 @@ public class Snake {
 		return lastTailPosition;
 	}
 
+	public Snake removeTail() {
+		SnakeEnd snakeEnd = new SnakeEnd();
+		return tail.equals(snakeEnd) ? snakeEnd : new Snake(position, direction, tail.removeTail());
+	}
+
 	public Point getPosition() {
 		return position;
 	}
