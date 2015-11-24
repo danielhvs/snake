@@ -8,8 +8,8 @@ import java.util.List;
 public class Snake {
 
 	protected Snake tail;
-	private Point position;
-	private Point direction;
+	protected Point position;
+	protected Point direction;
 
 	public Snake() {
 	}
@@ -145,6 +145,10 @@ public class Snake {
 			return false;
 		}
 		return true;
+	}
+
+	public Snake turn(Point direction) {
+		return new Snake(position, direction, tail);
 	}
 
 }

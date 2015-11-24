@@ -7,25 +7,8 @@ public class HoleMovingRules extends AMovingRules {
 
 	private Hole hole;
 
-	public HoleMovingRules(Snake snake, Hole hole) {
-		super(snake);
+	public HoleMovingRules(Hole hole) {
 		this.hole = hole;
-	}
-
-	@Override
-	public AMovingRules move() {
-		if (snake.getPosition().equals(hole.getInitialPoint())) {
-			Snake teleportedSnake = snake.move(hole.getFinalPoint());
-			return new HoleMovingRules(teleportedSnake, hole);
-		} else {
-			Snake futureSnake = snake.move(snake.getPosition().add(snake.getDirection()));
-			return new HoleMovingRules(futureSnake, hole);
-		}
-	}
-
-	@Override
-	protected AMovingRules newInstanceOfMovingRules(Snake snake, Point direction) {
-		return new HoleMovingRules(new Snake(snake, direction), hole);
 	}
 
 	@Override

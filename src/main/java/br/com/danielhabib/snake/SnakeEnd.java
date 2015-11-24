@@ -6,6 +6,10 @@ import java.util.List;
 
 public class SnakeEnd extends Snake {
 
+	public SnakeEnd() {
+		initNOP();
+	}
+
 	@Override
 	public Snake addTail(int x, int y) {
 		return new Snake(x, y);
@@ -39,4 +43,25 @@ public class SnakeEnd extends Snake {
 	public Snake removeTail() {
 		return this;
 	}
+
+	@Override
+	public Snake move() {
+		return this;
+	}
+
+	@Override
+	public Snake turn(Point direction) {
+		return this;
+	}
+
+	@Override
+	public Snake addTail() {
+		return this;
+	}
+
+	private void initNOP() {
+		this.position = new Point(-1, -1);
+		this.direction = new Point(0, 0);
+	}
+
 }

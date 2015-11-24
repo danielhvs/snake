@@ -20,9 +20,12 @@ public class Main2D extends JApplet {
 		this.snake = snake;
 		this.movingRules = rules;
 		this.random = random;
-		this.ai = aiSnake;
+		this.ai = new SnakeEnd();// aiSnake;
 		fruitRules.add(fruit);
 		fruitRules.add(new PoisonedFruitRule(new Point(5, 8)));
+		fruitRules.add(new PoisonedFruitRule(new Point(7, 8)));
+		fruitRules.add(new PoisonedFruitRule(new Point(3, 8)));
+		fruitRules.add(new PoisonedFruitRule(new Point(8, 10)));
 	}
 
 	@Override
