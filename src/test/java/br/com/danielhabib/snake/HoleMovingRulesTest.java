@@ -9,13 +9,16 @@ public class HoleMovingRulesTest {
 
 	@Test
 	public void move_ThereIsAHoleInSnakeFront_TeleportsToTheEndOfTheHole() throws Exception {
-		Snake snake = new Snake(0, 0);
 		Snake finalSnakePosition = new Snake(10, 0);
 
-		AMovingRules rules = new HoleMovingRules(new Snake(snake, RIGHT), new Hole(new Point(1, 0), new Point(10, 0)));
-		AMovingRules finalPosition = rules.move().move();
+		Snake snake = new Snake(new Point(0, 0), RIGHT);
 
-		AMovingRules expected = new HoleMovingRules(new Snake(finalSnakePosition, RIGHT), new Hole(new Point(1, 0), new Point(10, 0)));
+		AMovingRules rules = new HoleMovingRules(new Hole(new Point(1, 0), new Point(10, 0)));
+
+		Snake finalPosition = rules.update(snake);
+		finalPosition = rules.update(finalPosition);
+
+		Snake expected = new Snake(finalSnakePosition, RIGHT);
 		assertEquals(expected, finalPosition);
 	}
 

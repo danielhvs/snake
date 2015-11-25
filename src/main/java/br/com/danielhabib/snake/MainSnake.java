@@ -15,12 +15,12 @@ public class MainSnake {
 	private static Main2D gui;
 
 	public static void main(String[] args) {
-		int size = 5;
+		int size = 2;
 		Snake snake = new Snake(size, 14);
 		for (int i = size - 1; i >= 1; i--) {
 			snake = snake.addTail(i, 14);
 		}
-		AMovingRules initial = new HoleMovingRules(snake, new Hole(new Point(5, 10), new Point(25, 17)));
+		AMovingRules initial = new HoleMovingRules(new Hole(new Point(5, 10), new Point(30, 27)));
 		Snake aiSnake = snake.move();
 		AMovingRules random = new RandomMovingRules();
 
