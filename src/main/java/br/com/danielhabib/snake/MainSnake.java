@@ -20,7 +20,7 @@ public class MainSnake {
 		for (int i = size - 1; i >= 1; i--) {
 			snake = snake.addTail(i, 14);
 		}
-		AMovingRules initial = new HoleMovingRules(snake, new Hole(new Point(5, 10), new Point(30, 27)));
+		AMovingRules initial = new HoleMovingRules(snake, new Hole(new Point(5, 10), new Point(25, 17)));
 		Snake aiSnake = snake.move();
 		AMovingRules random = new RandomMovingRules();
 
