@@ -6,4 +6,5 @@ public interface IRule {
 	public Snake update(Snake snake);
 
 	public void draw(Graphics g);
+
 }

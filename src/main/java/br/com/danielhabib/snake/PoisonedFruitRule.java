@@ -29,4 +29,8 @@ public class PoisonedFruitRule implements IRule {
 			g.fillOval(fruitPosition.getX() * 16, fruitPosition.getY() * 16, 16, 16);
 		}
 	}
+
+	public Point getFruitPosition() {
+		return fruitPosition;
+	}
 }

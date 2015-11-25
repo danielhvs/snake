@@ -22,10 +22,16 @@ public class FruitRule implements IRule {
 		return snake.addTail();
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		if (fruitPosition.getX() >= 0) {
 			g.setColor(Color.ORANGE);
 			g.fillOval(fruitPosition.getX() * 16, fruitPosition.getY() * 16, 16, 16);
 		}
+	}
+
+	// FIXME: Remove later, generalize access to a "drawable point"?
+	public Point getFruitPosition() {
+		return fruitPosition;
 	}
 }
