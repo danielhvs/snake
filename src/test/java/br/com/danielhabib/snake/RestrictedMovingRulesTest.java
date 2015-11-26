@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class RestrictedMovingRulesTest {
+public class RestrictedMovingRulesTest extends BaseTest {
 
 	@Test
 	public void move_ThereIsTailInTheWay_DoesntMove() throws Exception {
@@ -20,6 +20,6 @@ public class RestrictedMovingRulesTest {
 	}
 
 	private Snake snakeSize5() {
-		return new Snake(5, 0).addTail(4, 0).addTail(3, 0).addTail(2, 0).addTail(1, 0);
+		return newSnake(5, 0).addTail(4, 0, RIGHT).addTail(3, 0, RIGHT).addTail(2, 0, RIGHT).addTail(1, 0, RIGHT);
 	}
 }

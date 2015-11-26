@@ -16,9 +16,9 @@ public class MainSnake {
 
 	public static void main(String[] args) {
 		int size = 2;
-		Snake snake = new Snake(size, 14);
+		Snake snake = new Snake(new Point(size, 14), Direction.RIGHT.getDirection());
 		for (int i = size - 1; i >= 1; i--) {
-			snake = snake.addTail(i, 14);
+			snake = snake.addTail(i, 14, Direction.RIGHT.getDirection());
 		}
 		AMovingRules initial = new HoleMovingRules(new Hole(new Point(5, 10), new Point(30, 27)));
 		Snake aiSnake = snake.move();

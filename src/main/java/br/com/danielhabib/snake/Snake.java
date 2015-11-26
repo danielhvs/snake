@@ -24,37 +24,28 @@ public class Snake {
 		this(position, direction, new SnakeEnd());
 	}
 
-	public Snake(int x, int y) {
-		this(new Point(x, y), new Point(1, 0), new SnakeEnd());
-	}
-
 	public Snake(Snake snake, Point direction) {
 		this(new Point(snake.getPosition()), direction, snake.getTail());
+	}
+
+	public Snake(int x, int y, Point direction) {
+		this(new Point(x, y), direction);
 	}
 
 	public Snake getTail() {
 		return tail;
 	}
 
-	public Snake addTail(Point position) {
-		return addTail(position.getX(), position.getY());
-	}
-
-	public Snake addTail(int x, int y) {
-		Snake newTail = tail.addTail(x, y);
+	public Snake addTail(int x, int y, Point direction) {
+		Snake newTail = tail.addTail(x, y, direction);
 		return new Snake(position, direction, newTail);
 	}
 
 	public Snake addTail() {
 		Point lastTailPosition = getLastTailPosition();
 		Point newTailPosition = lastTailPosition.subtract(direction);
-		Snake newTail = tail.addTail(newTailPosition);
+		Snake newTail = tail.addTail(newTailPosition.getX(), newTailPosition.getY(), direction);
 		return new Snake(position, direction, newTail);
-	}
-
-	public void draw() {
-		System.out.print(position);
-		tail.draw();
 	}
 
 	public void draw(Graphics g) {
@@ -106,7 +97,7 @@ public class Snake {
 
 	@Override
 	public String toString() {
-		return position + "-" + tail.toString();
+		return Direction.valueOf(direction) + ":" + position + "-" + tail.toString();
 	}
 
 	@Override
@@ -149,6 +140,16 @@ public class Snake {
 
 	public Snake turn(Point direction) {
 		return new Snake(position, direction, tail);
+	}
+
+	public Snake revert() {
+		List<Point> positions = getPositions();
+		int snakeSize = positions.size();
+		Snake snake = new Snake(positions.get(positions.size() - 1), direction.invert());
+		for (int i = 0; i < snakeSize - 1; i++) {
+			snake = snake.addTail();
+		}
+		return snake;
 	}
 
 }

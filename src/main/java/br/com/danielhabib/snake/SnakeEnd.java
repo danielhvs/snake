@@ -11,13 +11,13 @@ public class SnakeEnd extends Snake {
 	}
 
 	@Override
-	public Snake addTail(int x, int y) {
-		return new Snake(x, y);
+	public Snake addTail(int x, int y, Point direction) {
+		return new Snake(x, y, direction);
 	}
 
 	@Override
-	public void draw() {
-		System.out.println();
+	public Snake revert() {
+		return this;
 	}
 
 	@Override
