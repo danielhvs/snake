@@ -18,6 +18,16 @@ public class BoingMovingRules extends AMovingRules {
 		return isOutOfBounds(nextPosition) ? snake.revert() : nextSnake;
 	}
 
+	@Override
+	public Snake turnLeft(Snake snake) {
+		return movingRules.turnLeft(snake);
+	}
+
+	@Override
+	public Snake turnRight(Snake snake) {
+		return movingRules.turnRight(snake);
+	}
+
 	private boolean isOutOfBounds(Point nextPosition) {
 		return nextPosition.getX() > lastX || nextPosition.getX() < 0 || nextPosition.getY() > lastY
 				|| nextPosition.getY() < 0;

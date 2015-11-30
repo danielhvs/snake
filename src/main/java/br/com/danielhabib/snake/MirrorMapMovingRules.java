@@ -28,4 +28,14 @@ public class MirrorMapMovingRules extends AMovingRules {
 		return nextSnake;
 	}
 
+	@Override
+	public Snake turnLeft(Snake snake) {
+		return movingRules.turnLeft(snake);
+	}
+
+	@Override
+	public Snake turnRight(Snake snake) {
+		return movingRules.turnRight(snake);
+	}
+
 }
