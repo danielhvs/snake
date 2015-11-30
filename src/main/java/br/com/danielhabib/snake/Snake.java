@@ -142,6 +142,8 @@ public class Snake {
 		return new Snake(position, direction, tail);
 	}
 
+	// FIXME: Fix the more complex snake scenarios: maybe change this whole
+	// snake representation? Are tails "stacks"!?
 	public Snake revert() {
 		List<Point> positions = getPositions();
 		int snakeSize = positions.size();
