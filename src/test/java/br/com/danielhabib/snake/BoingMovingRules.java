@@ -4,9 +4,13 @@ public class BoingMovingRules extends AMovingRules {
 	private AMovingRules movingRules;
 	private int lastX;
 	private int lastY;
+	private int firstX;
+	private int firstY;
 
-	public BoingMovingRules(AMovingRules movingRules, int lastX, int lastY) {
+	public BoingMovingRules(AMovingRules movingRules, int firstX, int firstY, int lastX, int lastY) {
 		this.movingRules = movingRules;
+		this.firstX = firstX;
+		this.firstY = firstY;
 		this.lastX = lastX;
 		this.lastY = lastY;
 	}
@@ -29,8 +33,7 @@ public class BoingMovingRules extends AMovingRules {
 	}
 
 	private boolean isOutOfBounds(Point nextPosition) {
-		return nextPosition.getX() > lastX || nextPosition.getX() < 0 || nextPosition.getY() > lastY
-				|| nextPosition.getY() < 0;
+		return nextPosition.getX() > lastX || nextPosition.getX() < firstX || nextPosition.getY() > lastY || nextPosition.getY() < firstY;
 	}
 
 }
