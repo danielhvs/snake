@@ -11,6 +11,7 @@ public class RestrictedMovingRulesTest extends BaseTest {
 		AMovingRules rules = new RestrictedMovingRules();
 
 		Snake snake = snakeSize5();
+
 		for (int i = 0; i < 3; i++) {
 			snake = rules.turnLeft(snake);
 			snake = rules.update(snake);
@@ -20,6 +21,6 @@ public class RestrictedMovingRulesTest extends BaseTest {
 	}
 
 	private Snake snakeSize5() {
-		return newSnake(5, 0).addTail(4, 0, RIGHT).addTail(3, 0, RIGHT).addTail(2, 0, RIGHT).addTail(1, 0, RIGHT);
+		return newSnake(5, 0).addTail(4, 0).addTail(3, 0).addTail(2, 0).addTail(1, 0);
 	}
 }

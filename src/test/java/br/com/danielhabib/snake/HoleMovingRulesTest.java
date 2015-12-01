@@ -10,15 +10,14 @@ public class HoleMovingRulesTest extends BaseTest {
 	public void move_ThereIsAHoleInSnakeFront_TeleportsToTheEndOfTheHole() throws Exception {
 		Snake finalSnakePosition = newSnake(10, 0);
 
-		Snake snake = new Snake(new Point(0, 0), RIGHT);
+		Snake snake = newSnake(0, 0);
 
 		AMovingRules rules = new HoleMovingRules(new Hole(new Point(1, 0), new Point(10, 0)));
 
 		Snake finalPosition = rules.update(snake);
 		finalPosition = rules.update(finalPosition);
 
-		Snake expected = new Snake(finalSnakePosition, RIGHT);
-		assertEquals(expected, finalPosition);
+		assertEquals(finalSnakePosition, finalPosition);
 	}
 
 }

@@ -4,108 +4,126 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Snake {
 
-	protected Snake tail;
-	protected Point position;
-	protected Point direction;
+	private Stack<Piece> pieces;
 
 	public Snake() {
 	}
 
-	public Snake(Point position, Point direction, Snake tail) {
-		this.position = position;
-		this.direction = direction;
-		this.tail = tail;
+	public Snake(Stack<Piece> pieces) {
+		this.pieces = pieces;
 	}
 
-	public Snake(Point position, Point direction) {
-		this(position, direction, new SnakeEnd());
+	public Piece getTail() {
+		return pieces.get(getTailIndex());
 	}
 
-	public Snake(Snake snake, Point direction) {
-		this(new Point(snake.getPosition()), direction, snake.getTail());
-	}
-
-	public Snake(int x, int y, Point direction) {
-		this(new Point(x, y), direction);
-	}
-
-	public Snake getTail() {
-		return tail;
-	}
-
-	public Snake addTail(int x, int y, Point direction) {
-		Snake newTail = tail.addTail(x, y, direction);
-		return new Snake(position, direction, newTail);
+	public Snake addTail(int x, int y) {
+		pieces.push(new Piece(new Point(x, y), getTail().getDirection()));
+		return new Snake(pieces);
 	}
 
 	public Snake addTail() {
-		Point lastTailPosition = getLastTailPosition();
-		Point newTailPosition = lastTailPosition.subtract(direction);
-		Snake newTail = tail.addTail(newTailPosition.getX(), newTailPosition.getY(), direction);
-		return new Snake(position, direction, newTail);
+		Piece tail = getTail();
+		Direction tailDirection = tail.getDirection();
+		Piece newTail = new Piece(tail.getPoint().subtract(tailDirection.getDirection()), tailDirection);
+		pieces.push(newTail);
+		return new Snake(pieces);
 	}
 
 	public void draw(Graphics g) {
-		int x = position.getX();
-		int y = position.getY();
-		int nextX = x + direction.getX();
-		int nextY = y + direction.getY();
+		int x = getPosition().getX();
+		int y = getPosition().getY();
+		int nextX = x + getDirection().getDirection().getX();
+		int nextY = y + getDirection().getDirection().getY();
 		g.drawRect(nextX * 16, nextY * 16, 4, 4);
 
 		g.setColor(Color.BLUE);
-		for (Point point : getPositions()) {
+		Stack<Piece> allPieces = getPieces();
+		while (!allPieces.isEmpty()) {
+			Piece piece = allPieces.pop();
+			Point point = piece.getPoint();
 			g.fillOval(point.getX() * 16, point.getY() * 16, 16, 16);
 		}
 	}
 
 	public Snake move(Point point) {
-		return new Snake(point, direction, tail.move(position));
+		Stack<Piece> newPieces = new Stack<Piece>();
+		List<Piece> list = new ArrayList<Piece>(getPieces());
+		Point headPoint = point;
+		Direction headDirection = list.get(0).getDirection();
+		for (int i = 0; i < list.size(); i++) {
+			Piece moved = list.get(i).move(headPoint);
+			Piece turned = moved.turn(headDirection);
+			newPieces.push(turned);
+			headPoint = list.get(i).getPoint();
+			headDirection = list.get(i).getDirection();
+		}
+		return new Snake(newPieces);
 	}
 
 	public Snake move() {
-		return move(position.add(direction));
-	}
-
-	public List<Point> getPositions() {
-		List<Point> points = new ArrayList<Point>();
-		points.add(position);
-		points.addAll(tail.getPositions());
-		return points;
-	}
-
-	private Point getLastTailPosition() {
-		List<Point> positions = getPositions();
-		Point lastTailPosition = positions.get(positions.size() - 1);
-		return lastTailPosition;
+		return move(getPosition().add(getDirection().getDirection()));
 	}
 
 	public Snake removeTail() {
-		SnakeEnd snakeEnd = new SnakeEnd();
-		return tail.equals(snakeEnd) ? snakeEnd : new Snake(position, direction, tail.removeTail());
+		pieces.pop();
+		return new Snake(pieces);
+	}
+
+	public Piece getHead() {
+		return pieces.get(0);
+	}
+
+	private int getTailIndex() {
+		return pieces.size() - 1;
 	}
 
 	public Point getPosition() {
-		return position;
+		return getHead().getPoint();
 	}
 
-	public Point getDirection() {
-		return direction;
+	public Direction getDirection() {
+		return getHead().getDirection();
 	}
 
 	@Override
 	public String toString() {
-		return Direction.valueOf(direction) + ":" + position + "-" + tail.toString();
+		return pieces.toString();
+	}
+
+	public Snake turn(Direction direction) {
+		Piece newHead = getHead().turn(direction);
+		int headIndex = 0;
+		pieces.remove(headIndex);
+		pieces.insertElementAt(newHead, headIndex);
+		return new Snake(pieces);
+	}
+
+	public Snake revert() {
+		Stack<Piece> newPieces = new Stack<Piece>();
+		while (!pieces.isEmpty()) {
+			Piece pop = pieces.pop();
+			Piece newPiece = new Piece(pop.getPoint(), pop.getDirection().invert());
+			newPieces.push(newPiece);
+		}
+		return new Snake(newPieces);
+	}
+
+	public Stack<Piece> getPieces() {
+		Stack<Piece> copy = new Stack<Piece>();
+		copy.addAll(pieces);
+		return copy;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((position == null) ? 0 : position.hashCode());
-		result = prime * result + ((tail == null) ? 0 : tail.hashCode());
+		result = prime * result + ((pieces == null) ? 0 : pieces.hashCode());
 		return result;
 	}
 
@@ -121,37 +139,14 @@ public class Snake {
 			return false;
 		}
 		Snake other = (Snake) obj;
-		if (position == null) {
-			if (other.position != null) {
+		if (pieces == null) {
+			if (other.pieces != null) {
 				return false;
 			}
-		} else if (!position.equals(other.position)) {
-			return false;
-		}
-		if (tail == null) {
-			if (other.tail != null) {
-				return false;
-			}
-		} else if (!tail.equals(other.tail)) {
+		} else if (!pieces.equals(other.pieces)) {
 			return false;
 		}
 		return true;
-	}
-
-	public Snake turn(Point direction) {
-		return new Snake(position, direction, tail);
-	}
-
-	// FIXME: Fix the more complex snake scenarios: maybe change this whole
-	// snake representation? Are tails "stacks"!?
-	public Snake revert() {
-		List<Point> positions = getPositions();
-		int snakeSize = positions.size();
-		Snake snake = new Snake(positions.get(positions.size() - 1), direction.invert());
-		for (int i = 0; i < snakeSize - 1; i++) {
-			snake = snake.addTail();
-		}
-		return snake;
 	}
 
 }

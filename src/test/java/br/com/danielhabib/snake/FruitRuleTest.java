@@ -11,7 +11,7 @@ public class FruitRuleTest extends BaseTest {
 
 		Snake snake = rule.update(newSnake(0, 0));
 
-		assertEquals(newSnake(0, 0).addTail(-1, 0, RIGHT), snake);
+		assertEquals(newSnake(0, 0).addTail(-1, 0), snake);
 
 	}
 
@@ -31,7 +31,7 @@ public class FruitRuleTest extends BaseTest {
 		Snake snakeAte = rule.update(newSnake(0, 0));
 		Snake snakeDidntAte = rule.update(newSnake(0, 0));
 
-		assertEquals(newSnake(0, 0).addTail(-1, 0, RIGHT), snakeAte);
+		assertEquals(newSnake(0, 0).addTail(-1, 0), snakeAte);
 		assertEquals(newSnake(0, 0), snakeDidntAte);
 	}
 }

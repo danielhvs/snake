@@ -12,6 +12,10 @@ public enum Direction {
 		return direction;
 	}
 
+	public Direction invert() {
+		return Direction.valueOf(direction.invert());
+	}
+
 	public static Direction valueOf(Point point) {
 		for (Direction direction : Direction.values()) {
 			if (direction.getDirection().equals(point)) {

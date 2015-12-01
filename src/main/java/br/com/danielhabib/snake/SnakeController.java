@@ -9,9 +9,9 @@ public class SnakeController {
 	}
 
 	public Snake up(Snake snake) {
-		if (Direction.RIGHT.getDirection().equals(snake.getDirection())) {
+		if (Direction.RIGHT.equals(snake.getDirection())) {
 			return movingRules.turnLeft(snake);
-		} else if (Direction.LEFT.getDirection().equals(snake.getDirection())) {
+		} else if (Direction.LEFT.equals(snake.getDirection())) {
 			return movingRules.turnRight(snake);
 		} else {
 			return snake;
@@ -19,9 +19,9 @@ public class SnakeController {
 	}
 
 	public Snake down(Snake snake) {
-		if (Direction.RIGHT.getDirection().equals(snake.getDirection())) {
+		if (Direction.RIGHT.equals(snake.getDirection())) {
 			return movingRules.turnRight(snake);
-		} else if (Direction.LEFT.getDirection().equals(snake.getDirection())) {
+		} else if (Direction.LEFT.equals(snake.getDirection())) {
 			return movingRules.turnLeft(snake);
 		} else {
 			return snake;
@@ -29,9 +29,9 @@ public class SnakeController {
 	}
 
 	public Snake left(Snake snake) {
-		if (Direction.UP.getDirection().equals(snake.getDirection())) {
+		if (Direction.UP.equals(snake.getDirection())) {
 			return movingRules.turnLeft(snake);
-		} else if (Direction.DOWN.getDirection().equals(snake.getDirection())) {
+		} else if (Direction.DOWN.equals(snake.getDirection())) {
 			return movingRules.turnRight(snake);
 		} else {
 			return snake;
@@ -39,9 +39,9 @@ public class SnakeController {
 	}
 
 	public Snake right(Snake snake) {
-		if (Direction.UP.getDirection().equals(snake.getDirection())) {
+		if (Direction.UP.equals(snake.getDirection())) {
 			return movingRules.turnRight(snake);
-		} else if (Direction.DOWN.getDirection().equals(snake.getDirection())) {
+		} else if (Direction.DOWN.equals(snake.getDirection())) {
 			return movingRules.turnLeft(snake);
 		} else {
 			return snake;
